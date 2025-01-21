@@ -1,0 +1,25 @@
+{
+  "name": "latex-template",
+  "image": "texlive/texlive:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/sshd:1": {
+      "version": "latest"
+    }
+  },
+  "customizations": {
+    // Configure properties specific to VS Code.
+    "vscode": {
+      "settings": {},
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "james-yu.latex-workshop",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "stkb.rewrap",
+        "usernamehw.errorlens",
+        "streetsidesoftware.code-spell-checker",
+        "redhat.vscode-yaml"
+      ]
+    }
+  }
+}
