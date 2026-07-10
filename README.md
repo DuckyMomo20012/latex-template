@@ -1,43 +1,11 @@
 <div align="center">
 
-  <img src="https://user-images.githubusercontent.com/64480713/219921672-be3ebe86-c8bf-409a-923d-bdfee746ea06.svg" alt="logo" width="200" height="auto" />
   <h1>Latex template</h1>
 
   <p>
     Latex template project
   </p>
 
-<!-- Badges -->
-<p>
-  <a href="https://github.com/DuckyMomo20012/latex-template/graphs/contributors">
-    <img src="https://img.shields.io/github/contributors/DuckyMomo20012/latex-template" alt="contributors" />
-  </a>
-  <a href="">
-    <img src="https://img.shields.io/github/last-commit/DuckyMomo20012/latex-template/main" alt="last update" />
-  </a>
-  <a href="https://github.com/DuckyMomo20012/latex-template/network/members">
-    <img src="https://img.shields.io/github/forks/DuckyMomo20012/latex-template" alt="forks" />
-  </a>
-  <a href="https://github.com/DuckyMomo20012/latex-template/stargazers">
-    <img src="https://img.shields.io/github/stars/DuckyMomo20012/latex-template" alt="stars" />
-  </a>
-  <a href="https://github.com/DuckyMomo20012/latex-template/issues/">
-    <img src="https://img.shields.io/github/issues/DuckyMomo20012/latex-template" alt="open issues" />
-  </a>
-  <a href="https://github.com/DuckyMomo20012/latex-template/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/DuckyMomo20012/latex-template" alt="license" />
-  </a>
-</p>
-
-<h4>
-    <a href="https://github.com/DuckyMomo20012/latex-template/">View Demo</a>
-  <span> · </span>
-    <a href="https://github.com/DuckyMomo20012/latex-template">Documentation</a>
-  <span> · </span>
-    <a href="https://github.com/DuckyMomo20012/latex-template/issues/">Report Bug</a>
-  <span> · </span>
-    <a href="https://github.com/DuckyMomo20012/latex-template/issues/">Request Feature</a>
-  </h4>
 </div>
 
 <br />
@@ -51,7 +19,6 @@
   - [Run Locally](#running-run-locally)
 - [Usage](#eyes-usage)
   - [Makefile](#package-makefile)
-  - [Compile](#computer-compile)
   - [Cleanup](#wastebasket-cleanup)
   - [Format Code](#sparkles-format-code)
   - [Remote Development](#whale-remote-development)
@@ -70,7 +37,6 @@
 This project requires the following prerequisites:
 
 - Local Development:
-
   - make:
 
   ```bash
@@ -83,7 +49,6 @@ This project requires the following prerequisites:
     macOS, and Windows. Required about ~5GB of disk space.
 
 - Remote Development (**recommended**):
-
   - [Docker](https://www.docker.com/) installed locally:
 
     ```bash
@@ -107,27 +72,17 @@ Go to the project directory:
 cd latex-template
 ```
 
-Compile `all` targets:
+> [!NOTE]
+> Is it **highly recommended** to open the project with `Dev Container` in `VS
+Code` for remote development, and use
+> [Latex Workshop](https://marketplace.visualstudio.com/items?itemName=James-Yu.latex-workshop)
+> extension to compile the project.
+
+You can also use `make` command to compile any `.tex` file in the project:
 
 ```bash
-make all
+make <folder>/<file_name>
 ```
-
-Compile `main` (Bachelor thesis):
-
-```bash
-make main
-```
-
-The generated pdf file will be located at `dist/main.pdf`.
-
-Compile `proposal` (Thesis proposal):
-
-```bash
-make proposal
-```
-
-The generated pdf file will be located at `dist/proposal.pdf`.
 
 <!-- Usage -->
 
@@ -139,87 +94,68 @@ The generated pdf file will be located at `dist/proposal.pdf`.
 
 There are two targets in the `Makefile`:
 
-- `main`: Compile the `main.tex` file, which is the **Bachelor thesis**.
-
+- `main`: Compile `.tex` files to generate the pdf file.
   - Usage:
 
-    ```bash
-    make main
-    ```
-
-- `proposal`: Compile the `proposal.tex` file, which is the **Thesis proposal**.
-
-  - Usage:
+    Compile a specific file (in root directory):
 
     ```bash
-    make proposal
+    make <file>
     ```
 
-- `all`: Compile both `main` and `proposal` targets.
-
-  - Usage:
+    Compile a specific file (in subdirectory):
 
     ```bash
-    make all
+    make <subdirectory>/<file>
     ```
+
+> [!NOTE]
+> Avoid adding `./` in the file name, because the `Makefile` will not recognize
+> it.
 
 - `pretty`: Format the code using `latexindent`.
-
   - Usage:
+
+    Format a specific file:
+
+    ```bash
+    make pretty FILE=<file_name>
+    ```
+
+    Format all files:
 
     ```bash
     make pretty
     ```
 
-- `clean`: Remove the `dist` directory.
-
+- `clean`: Remove the auxiliary files generated.
   - Usage:
 
     ```bash
     make clean
     ```
 
-<!-- Compile -->
+- `deep-clean`: Remove all auxiliary files generated.
+  - Usage:
 
-### :computer: Compile
-
-The compilation process is described in the following steps:
-
-1. Clone the directory tree:
-
-   In the next step, we want to output the compiled files to the `dist`
-   directory, using the option `-output-directory`; however, the `pdflatex` may
-   write some auxiliary files to the dependency directories (required files by
-   the main latex file) and it **can't write without those directories created
-   in the `dist` directory**.
-
-2. Compile the `tex` file:
-
-   The `pdflatex` will compile the `tex` file and write the output to the `dist`
-   directory.
-
-   Compile order:
-
-   - `main.tex`: `pdflatex` -> `bibtex` -> `pdflatex` -> `pdflatex`.
-   - `proposal.tex`: `pdflatex` -> `bibtex` -> `pdflatex` -> `pdflatex`.
-
-   > **Note**: The pdf files will be **generated with different checksums** on
-   > each run.
-
-3. Clean up the directory tree:
-
-   Sometimes, the `tex` file doesn't have any dependencies, so the cloned
-   directory tree will have an empty directory. In this case, we should clean up
-   empty directories.
+    ```bash
+    make deep-clean
+    ```
 
 <!-- Cleanup -->
 
 ### :wastebasket: Cleanup
 
-Clean up the `dist` directory:
+Clean up base auxiliary files:
 
 ```bash
 make clean
+```
+
+Clean up all auxiliary files:
+
+```bash
+make deep-clean
 ```
 
 <!-- Format Code -->
@@ -241,7 +177,6 @@ make pretty
 - All the `tex` files will be formatted.
 
 - The `latexindent` will be used to format the code:
-
   - `cruft`: Backup directory stored in `dist/backup`.
   - `local`: Configuration file defined in `latexindent.yaml`.
   - `overwrite`: Overwrite the original file.
@@ -294,8 +229,7 @@ The `devcontainer.json` file is used to configure the development container.
 
 ## :grey_question: FAQ
 
-- Can I develop this project on Overleaf?
-
+- Can I develop this project on [Overleaf](https://www.overleaf.com/)?
   - Yes, you can. You can use it as an editor, but you still need to commit
     those changes to the repository.
 
@@ -304,12 +238,24 @@ The `devcontainer.json` file is used to configure the development container.
     template instructions
     [here](https://www.fit.hcmus.edu.vn/vn/LinkClick.aspx?fileticket=uQfVVVLFuE0%3D&tabid=1064&mid=3747).
 
-- Can't remove the `dist` directory?
+  - However, due to recent price changes, the free plan of `Overleaf` is quite
+    limited, so you may want to consider using another solution.
 
-  - If you develop this project in the container, hence the `dist` is created by
-    the container, you can't remove it without changing the owner of the `dist`.
+- Can I develop this project on [Prism](https://prism.openai.com/)?
+  - Yes, you can. You can use it as an editor, but you still need to commit
+    those changes to the repository.
 
-  - To remove the `dist` directory, you have to change the owner:
+  - Prism is a free and open-source online LaTeX editor that allows you to
+    write, edit, and compile LaTeX documents in your web browser. We recommend
+    using Prism for small projects, but for larger projects, you may want to
+    consider using another solution.
+
+- Can't remove the directory?
+  - If you develop this project in the container, the directory is created by
+    the container, you can't remove it without changing the owner of the
+    directory.
+
+  - To remove the sample `dist` directory, you have to change the owner:
 
     ```bash
     sudo chown -R $USER:$USER dist
@@ -319,12 +265,6 @@ The `devcontainer.json` file is used to configure the development container.
 
     ```bash
     rm -rf dist
-    ```
-
-    Or you can use the `make` command:
-
-    ```bash
-    make clean
     ```
 
 <!-- Contact -->
